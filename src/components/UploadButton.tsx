@@ -1,34 +1,28 @@
 import { useRef } from 'react';
 import { css } from '@emotion/react'
-
-type UploadButtonProps = {
-    onImageUploaded: (params: any) => void
-}
-
+import { useAppContext } from './AppContextProvider';
+//////////////////////// ABORT //////////////////////////////////////////////////////////////////////////
 const styles = css({}) // put css object here
 
-function UploadButton(props: UploadButtonProps) {
-    const { onImageUploaded } = props
-
+function UploadButton() {
+    const { selectedImage, readFileToImage } = useAppContext()
     const hiddenFileInput = useRef<HTMLInputElement>(null)
 
-    const handleClick = () => {
+    const handleButtonClick = () => {
         hiddenFileInput.current?.click();
     };
 
-    const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const handleInputChange = (event: React.FormEvent<HTMLInputElement>) => {
         console.log('it changed!')
-        const fileReader = new FileReader();
-
         const target = event.target as HTMLInputElement
         const files = target.files ?? [];
         const fileUploaded = files[0];
-        onImageUploaded(fileUploaded);
+        readFileToImage(fileUploaded);
     };
     return (
         <>
             <button
-                onClick={handleClick}
+                onClick={handleButtonClick}
                 type="button"
                 className="
             bg-orange-400
@@ -54,7 +48,7 @@ function UploadButton(props: UploadButtonProps) {
                 type="file"
                 // id={uploadId}
                 ref={hiddenFileInput}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 className='hidden'
                 accept="image/*"
             />
