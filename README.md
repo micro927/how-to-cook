@@ -1,2 +1,2 @@
-# how-to-cook
-Fun Project #1 : Find how your favorite food's recipe !
+# HOW TO COOK
+Fun Project #2 : Find how your favorite food's recipe !
